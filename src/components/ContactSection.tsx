@@ -30,22 +30,20 @@ const ContactSection = () => {
     setStatus("");
 
     emailjs
-      .sendForm(
-        "service_qr9c7td",
-        "template_md84yy8",
-        e.target,
-        "CAppzOVtcAqVWE541"
-      )
-      .then(() => {
-        setStatus("Message sent. I will get back to you soon.");
-        setLoading(false);
-        e.target.reset();
-      })
-      .catch((error) => {
-        console.error(error);
-        setStatus("Failed to send message. Try again later.");
-        setLoading(false);
-      });
+    emailjs.sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      e.target,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    ).then(() => {
+      setStatus("Message sent. I will get back to you soon.");
+      setLoading(false);
+      e.target.reset();
+    }).catch((error) => {
+      console.error(error);
+      setStatus("Failed to send message. Try again later.");
+      setLoading(false);
+    });
   };
 
   const validate = () => {
