@@ -4,12 +4,12 @@ import { ExternalLink, Github, Cpu, Brain, Palette, Users } from "lucide-react";
 
 const projects = [
   {
-    title: "AI Wildlife Detection System",
+    title: "EcoWatchAI",
     icon: Cpu,
     description:
       "AI-powered wildlife recognition using Python and TFLite. Processes ~2000 forest images with multiple identification methods. Received a Letter of Recommendation from Pune Municipal Corporation.",
-    tech: ["Python", "TFLite", "PyMySQL", "Image Processing"],
-    github: "https://github.com/wolfnhk20",
+    tech: ["Python", "Yolov8", "Flask", "Image Processing"],
+    github: "https://github.com/wolfnhk20/ecowatch-v2/",
   },
   {
     title: "PTSD Detection App",
@@ -20,20 +20,20 @@ const projects = [
     github: "https://github.com/wolfnhk20",
   },
   {
-    title: "Interior Design Website",
+    title: "RegIt",
     icon: Palette,
     description:
-      "Modern, responsive interior design portfolio website with elegant UI, smooth animations, and a content management system for showcasing design projects and client testimonials.",
-    tech: ["React", "Tailwind CSS", "Framer Motion", "TypeScript"],
-    github: "https://github.com/wolfnhk20",
+      "Integrated MySQL database connectivity using PyMySQL. Implemented modules for registration, admin access, and data management. Designed GUI with TtkThemes for improved usability.",
+    tech: ["Python", "Tkinter", "Pandas", "PyMySQL"],
+    github: "https://github.com/wolfnhk20/regit/",
   },
   {
-    title: "Student Networking Platform",
+    title: "StudySyncAI",
     icon: Users,
     description:
-      "Full-stack student networking platform with JWT auth, role-based access, event creation, team management, and real-time collaboration features for academic communities.",
-    tech: ["Spring Boot", "Hibernate", "JPA", "MySQL", "REST APIs"],
-    github: "https://github.com/wolfnhk20",
+      "AI-powered timetable assistant that helps students organize schedules and manage study time efficiently.Generates structured timetables and optimizes daily planning based on workload.Designed to improve productivity and consistency in study routines.",
+    tech: ["Spring Boot", "React Native", "PostgreSQL", "Python", "Scikit-learn"],
+    github: "https://github.com/wolfnhk20/studysyncai/",
   },
 ];
 

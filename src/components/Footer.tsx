@@ -1,16 +1,17 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 
 const socials = [
   { icon: Github, href: "https://github.com/wolfnhk20", label: "GitHub" },
   { icon: Linkedin, href: "https://www.linkedin.com/in/ayushkulal/", label: "LinkedIn" },
   { icon: Mail, href: "mailto:ayushkulal20@gmail.com", label: "Email" },
+  { icon: Instagram, href: "https://www.instagram.com/ayush.strums/", label: "Instagram" },
 ];
 
 const Footer = () => (
   <footer className="border-t border-border/40 py-8 px-6">
     <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <p className="text-muted-foreground/60 text-xs">
-        © {new Date().getFullYear()} Ayush Kulal. Crafted with passion.
+        © {new Date().getFullYear()} Ayush Kulal. All rights reserved.
       </p>
       <div className="flex gap-4">
         {socials.map((s) => (

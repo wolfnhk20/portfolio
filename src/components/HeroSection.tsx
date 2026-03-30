@@ -37,7 +37,7 @@ const HeroSection = () => {
         <motion.div variants={fadeUp} className="flex justify-center mb-8">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs font-medium text-primary tracking-wide">
             <Sparkles size={12} className="animate-pulse-glow" />
-            Available for opportunities
+            Freelance Developer • Open to Opportunities
           </span>
         </motion.div>
 
@@ -60,10 +60,10 @@ const HeroSection = () => {
         {/* Title - split for impact */}
         <motion.div variants={fadeUp} className="space-y-1 mb-6">
           <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-foreground">
-            Full Stack Java Developer
+            Full Stack Java Developer | Freelancer
           </h2>
           <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-primary/80">
-            & Lead Guitarist
+            & Guitarist
           </h2>
         </motion.div>
 

@@ -4,9 +4,9 @@ import { MapPin, GraduationCap, Target, Trophy } from "lucide-react";
 
 const details = [
   { icon: MapPin, label: "Location", value: "Pune, India" },
-  { icon: GraduationCap, label: "Education", value: "B.E. Computer Engineering — AISSMS COE (CGPA 8.0)" },
-  { icon: Target, label: "Focus", value: "Spring Boot · REST APIs · AI Projects" },
-  { icon: Trophy, label: "Highlight", value: "1st rank — State Level TechCode War 2k23" },
+  { icon: GraduationCap, label: "Education", value: "B.E. Computer Engineering - AISSMS COE" },
+  { icon: Target, label: "Focus", value: "Scalable backend systems • REST APIs • AI-driven applications" },
+  { icon: Trophy, label: "Highlight", value: "Turning ideas into products and music into expression!" },
 ];
 
 const AboutSection = () => (
@@ -17,18 +17,13 @@ const AboutSection = () => (
     <div className="grid md:grid-cols-2 gap-12 items-start">
       <div className="space-y-5 text-muted-foreground leading-relaxed text-[15px]">
         <p>
-          I'm Ayush Kulal — a Java Backend Developer with a passion for building robust, scalable systems.
-          My journey started with C programming, evolved through Python and the MERN stack, and found its
-          home in the Spring Boot ecosystem.
+          I’m Ayush, a full stack developer and freelance developer who enjoys turning ideas into real, working products. I started out with C, figuring things out from scratch, and gradually moved through Python and the MERN stack before focusing on backend development with Spring Boot.
         </p>
         <p>
-          I'm deeply drawn to AI-powered projects — from wildlife recognition systems to PTSD detection
-          applications — where technology can create real impact.
+          I work on projects that solve real problems, both independently and with clients. From AI-based wildlife detection to PTSD analysis systems, I like building things that go beyond just “another project” and actually create impact.
         </p>
         <p>
-          Beyond the terminal, I'm a lead guitarist who brings the same discipline, creativity, and precision
-          to both code and music. Every riff I play and every API I build shares the same philosophy:
-          practice, patience, and passion.
+          Outside of development, I’m a guitarist. Music has taught me patience, creativity, and discipline the same mindset I bring into coding. Whether it’s refining a guitar solo or building an API, I focus on consistency, clarity, and continuous improvement.
         </p>
       </div>
 

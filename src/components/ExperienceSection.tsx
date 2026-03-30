@@ -3,34 +3,22 @@ import SectionWrapper from "./SectionWrapper";
 
 const items = [
   {
+    year: "2023 - Present",
+    title: "Freelance Web Developer",
+    org: "Self-Employed",
+    desc: "Developed responsive and client-focused web applications using React and modern tech stack. Built dynamic frontends, integrated APIs, and delivered optimized solutions based on client requirements.",
+  },
+  {
     year: "2025",
     title: "Business Development Intern",
     org: "Ayuzera (Virtual)",
     desc: "Managed lead generation, client communication, product promotion, and CRM workflows.",
   },
   {
-    year: "2024",
-    title: "B.E. Computer Engineering",
-    org: "AISSMS COE, Pune",
-    desc: "Currently pursuing bachelor's degree with CGPA 8.0. Active member of Technical Committee.",
-  },
-  {
-    year: "2023",
-    title: "1st Rank — TechCode War 2k23",
-    org: "State Level Competition",
-    desc: "Secured 1st among 240 participants at the state-level coding competition.",
-  },
-  {
     year: "2023",
     title: "Software Development Intern",
     org: "IANT, Pune",
     desc: "Developed modules using Python and Java. Built form, registration, and database-driven components.",
-  },
-  {
-    year: "2024",
-    title: "2nd Rank — Techno-Innova'24",
-    org: "C Challenge, BVJNOIT Polytechnic",
-    desc: "Runner-up at the inter-college technical programming competition.",
   },
 ];
 

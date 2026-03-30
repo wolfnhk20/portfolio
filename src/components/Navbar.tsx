@@ -36,13 +36,14 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass-strong shadow-lg" : "bg-transparent"
-      }`}
+      className={`fixed md:relative top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+          ? "glass-strong shadow-lg md:bg-transparent md:shadow-none"
+          : "bg-transparent"
+        }`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         <a href="#" className="font-display text-lg font-bold text-primary">
-          Ayush<span className="text-foreground/40">.</span>
+          Ayush Kulal<span className="text-foreground/40">.</span>
         </a>
 
         <ul className="hidden md:flex items-center gap-8">
@@ -50,9 +51,8 @@ const Navbar = () => {
             <li key={item.href}>
               <a
                 href={item.href}
-                className={`text-[13px] font-medium transition-colors duration-200 hover:text-primary ${
-                  active === item.href.slice(1) ? "text-primary" : "text-muted-foreground"
-                }`}
+                className={`text-[13px] font-medium transition-colors duration-200 hover:text-primary ${active === item.href.slice(1) ? "text-primary" : "text-muted-foreground"
+                  }`}
               >
                 {item.label}
               </a>

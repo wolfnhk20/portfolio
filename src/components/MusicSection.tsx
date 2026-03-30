@@ -21,21 +21,18 @@ const MusicSection = () => (
       >
         <div className="flex items-center gap-3 text-primary">
           <div className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center">
-            <Guitar size={16} />
+            <Guitar size={20} />
           </div>
-          <span className="font-display font-semibold tracking-wide text-sm">Lead Guitarist</span>
+          <span className="font-display font-semibold tracking-wide text-sm">Guitarist</span>
         </div>
         <p className="text-muted-foreground leading-relaxed text-[15px]">
-          Music is where I find my balance. I play lead guitar in the college band and have
-          worked as a sound professional for college dramas.
+          When I’m not debugging code, I’m probably bending strings on my guitar. I play in the college band and have also worked on sound for stage productions.
         </p>
         <blockquote className="border-l-2 border-primary/30 pl-4 italic text-muted-foreground/80 text-sm">
-          "Music taught me creativity, discipline, and expression — skills I bring into development."
+          "Same mindset, different mediums. Clean code or clean tone."
         </blockquote>
         <p className="text-muted-foreground leading-relaxed text-[15px]">
-          From rock riffs to fingerstyle melodies, my guitar is never far from reach. It keeps
-          me grounded and reminds me that great code and great music share the same recipe:
-          patience and passion.
+          Guitar keeps me sharp. Timing, precision, consistency. Whether it’s a solo or an API, I’m chasing the same thing, getting it right and making it feel effortless.
         </p>
       </motion.div>
 
@@ -49,9 +46,11 @@ const MusicSection = () => (
         <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
           <Play size={24} className="text-primary/50 ml-1" />
         </div>
-        <p className="text-muted-foreground text-sm font-medium mb-1">Video / Reels coming soon</p>
-        <p className="text-muted-foreground/40 text-xs">
-          Placeholder for embedded guitar performances
+        <p className="text-muted-foreground text-sm font-medium mb-1">New guitar content coming soon.</p>
+        <p className="text-muted-foreground/40 text-sm">
+          <a href="https://www.instagram.com/ayush.strums/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary transition-colors">
+            Follow me on Instagram
+          </a>
         </p>
       </motion.div>
     </div>
