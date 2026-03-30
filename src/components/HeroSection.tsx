@@ -1,68 +1,96 @@
 import { motion } from "framer-motion";
+import { ArrowDown, Sparkles } from "lucide-react";
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.15, delayChildren: 0.3 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+};
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Ambient background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-primary/5 blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-forest/20 blur-3xl animate-float" style={{ animationDelay: "3s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/3 blur-[100px]" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden noise-bg">
+      {/* Ambient orbs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] rounded-full bg-primary/[0.04] blur-[120px] animate-float" />
+        <div className="absolute bottom-1/4 -right-40 w-[500px] h-[500px] rounded-full bg-forest/20 blur-[120px] animate-float" style={{ animationDelay: "3s" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-primary/[0.02] blur-[150px] animate-pulse-glow" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 text-center">
+      {/* Grid lines (very subtle) */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{
+        backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+        backgroundSize: '80px 80px',
+      }} />
+
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+        className="container mx-auto px-6 relative z-10 text-center max-w-4xl"
+      >
+        {/* Badge */}
+        <motion.div variants={fadeUp} className="flex justify-center mb-8">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs font-medium text-primary tracking-wide">
+            <Sparkles size={12} className="animate-pulse-glow" />
+            Available for opportunities
+          </span>
+        </motion.div>
+
+        {/* Greeting */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-primary font-medium tracking-widest uppercase text-sm mb-6"
+          variants={fadeUp}
+          className="text-muted-foreground font-medium tracking-[0.2em] uppercase text-xs mb-6"
         >
           Hello, I'm
         </motion.p>
 
+        {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="font-display text-6xl md:text-8xl font-bold mb-4 text-gradient"
+          variants={fadeUp}
+          className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-6 text-gradient leading-none"
         >
           Ayush
         </motion.h1>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-xl md:text-2xl text-foreground font-light mb-4"
-        >
-          Full Stack Java Developer & Guitarist
-        </motion.h2>
+        {/* Title - split for impact */}
+        <motion.div variants={fadeUp} className="space-y-1 mb-6">
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-foreground">
+            Full Stack Java Developer
+          </h2>
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-primary/80">
+            & Lead Guitarist
+          </h2>
+        </motion.div>
 
+        {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-muted-foreground max-w-lg mx-auto mb-10 leading-relaxed"
+          variants={fadeUp}
+          className="text-muted-foreground max-w-md mx-auto mb-12 leading-relaxed text-sm md:text-base"
         >
-          Building scalable apps by day, creating music by night. Passionate about
-          crafting elegant solutions and unforgettable melodies.
+          Building scalable apps by day,
+          <br className="hidden sm:block" />{" "}
+          creating music that speaks by night.
         </motion.p>
 
+        {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
+          variants={fadeUp}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <a
             href="#projects"
-            className="px-8 py-3.5 rounded-lg bg-primary text-primary-foreground font-medium hover:brightness-110 transition-all duration-200 glow-gold"
+            className="group relative px-8 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:brightness-110 transition-all duration-300 glow-gold hover:glow-gold-hover"
           >
             View Projects
           </a>
           <a
             href="#contact"
-            className="px-8 py-3.5 rounded-lg border border-border text-foreground font-medium hover:bg-secondary transition-all duration-200"
+            className="px-8 py-3.5 rounded-xl border border-border text-foreground font-semibold text-sm hover:border-primary/40 hover:text-primary transition-all duration-300"
           >
             Contact Me
           </a>
@@ -72,18 +100,17 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          transition={{ delay: 2 }}
+          className="absolute -bottom-16 left-1/2 -translate-x-1/2"
         >
-          <div className="w-5 h-8 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-1.5">
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-              className="w-1 h-1 rounded-full bg-primary"
-            />
-          </div>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          >
+            <ArrowDown size={16} className="text-muted-foreground/40" />
+          </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };

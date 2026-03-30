@@ -12,9 +12,9 @@ const SectionWrapper = ({ id, children, className = "" }: Props) => (
     id={id}
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.15 }}
-    transition={{ duration: 0.6, ease: "easeOut" }}
-    className={`py-24 px-6 ${className}`}
+    viewport={{ once: true, amount: 0.1 }}
+    transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
+    className={`py-28 px-6 ${className}`}
   >
     <div className="container mx-auto max-w-5xl">{children}</div>
   </motion.section>
