@@ -8,6 +8,7 @@ const navItems = [
   { label: "Experience", href: "#experience" },
   { label: "Music", href: "#music" },
   { label: "Contact", href: "#contact" },
+  { label: "Resume", href: "/ayushkulal_resume.pdf", target: "_blank" },
 ];
 
 const Navbar = () => {
@@ -37,8 +38,8 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed md:relative top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? "glass-strong shadow-lg md:bg-transparent md:shadow-none"
-          : "bg-transparent"
+        ? "glass-strong shadow-lg md:bg-transparent md:shadow-none"
+        : "bg-transparent"
         }`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
@@ -51,9 +52,12 @@ const Navbar = () => {
             <li key={item.href}>
               <a
                 href={item.href}
+                target={item.target || "_self"}
+                rel={item.target === "_blank" ? "noopener noreferrer" : ""}
                 className={`text-[13px] font-medium transition-colors duration-200 hover:text-primary ${active === item.href.slice(1) ? "text-primary" : "text-muted-foreground"
                   }`}
               >
+
                 {item.label}
               </a>
             </li>

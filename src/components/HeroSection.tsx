@@ -86,13 +86,13 @@ const HeroSection = () => {
             href="#projects"
             className="group relative px-8 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:brightness-110 transition-all duration-300 glow-gold hover:glow-gold-hover"
           >
-            View Projects
+            View My Work
           </a>
           <a
             href="#contact"
             className="px-8 py-3.5 rounded-xl border border-border text-foreground font-semibold text-sm hover:border-primary/40 hover:text-primary transition-all duration-300"
           >
-            Contact Me
+            Let's Connect
           </a>
         </motion.div>
 
