@@ -4,36 +4,38 @@ import { ExternalLink, Github, Cpu, Brain, Palette, Users } from "lucide-react";
 
 const projects = [
   {
-    title: "EcoWatchAI",
+    title: "Financial Dashboard - Role based Access Control",
     icon: Cpu,
     description:
-      "AI-powered wildlife recognition using Python and TFLite. Processes ~2000 forest images with multiple identification methods. Received a Letter of Recommendation from Pune Municipal Corporation.",
-    tech: ["Python", "Yolov8", "Flask", "Image Processing"],
-    github: "https://github.com/wolfnhk20/ecowatch-v2/",
+      "A full-stack finance dashboard built with Spring Boot, React, and PostgreSQL, featuring role-based access control for Admin, Analyst, and Viewer. Secured REST APIs using Spring Security and JWT authentication, ensuring controlled data access across user roles. Optimized frontend performance by reducing load time by 40% through parallel API calls, and containerized the backend using Docker for consistent deployment.",
+    tech: ["Spring Boot", "JWT", "Supabase", "React"],
+    github: "https://github.com/wolfnhk20/findash-frontend/",
+    demo: "https://findash-eta-two.vercel.app/",
   },
   {
-    title: "PTSD Detection App",
+    title: "EcoWatchAI - Wildlife Detection System",
     icon: Brain,
     description:
-      "Application leveraging AI and data analysis to assist in early detection of PTSD symptoms, combining medical insights with technology for impactful healthcare solutions.",
-    tech: ["Python", "Machine Learning", "Data Analysis"],
-    github: "https://github.com/wolfnhk20",
+      "An AI-powered wildlife detection system using YOLOv8, Flask, and TensorFlow Lite to identify species from field images in real time. Processed over 4000 images with optimized inference for faster performance and reduced memory usage. Developed a user interface to display bounding boxes, species labels, and confidence scores, and received a Letter of Recommendation from Pune Municipal Corporation.",
+    tech: ["Python", "YOLOv8", "Flask", "TensorFlow Lite"],
+    github: "https://github.com/wolfnhk20/ecowatch-v2/",
+    demo: "https://ecowatch.onrender.com/"
   },
   {
-    title: "RegIt",
+    title: "Bloom Events - Event Coordination Platform",
     icon: Palette,
     description:
-      "Integrated MySQL database connectivity using PyMySQL. Implemented modules for registration, admin access, and data management. Designed GUI with TtkThemes for improved usability.",
-    tech: ["Python", "Tkinter", "Pandas", "PyMySQL"],
-    github: "https://github.com/wolfnhk20/regit/",
+      "A full-stack event booking platform built with Spring Boot, React, and PostgreSQL, integrating Google OAuth for secure authentication and JWT for API authorization. Designed RESTful APIs for managing events, packages, and services, and implemented a dynamic cost calculation system across a multi-step booking workflow. Deployed using Vercel and Railway with environment-based configuration.",
+    tech: ["Spring Boot", "React", "PostgreSQL", "OAuth", "JWT"],
+    github: "https://github.com/wolfnhk20/bloom-events/",
+    demo: "https://bloom-events.vercel.app/"
   },
   {
-    title: "StudySyncAI",
+    title: "StudySyncAI (Conceptual Project)",
     icon: Users,
     description:
       "AI-powered timetable assistant that helps students organize schedules and manage study time efficiently.Generates structured timetables and optimizes daily planning based on workload.Designed to improve productivity and consistency in study routines.",
-    tech: ["Spring Boot", "React Native", "PostgreSQL", "Python", "Scikit-learn"],
-    github: "https://github.com/wolfnhk20/studysyncai/",
+    tech: ["Spring Boot", "React Native", "Supabase", "Python", "Scikit-learn"],
   },
 ];
 
@@ -81,7 +83,9 @@ const ProjectsSection = () => (
               <Github size={13} /> View Code
             </a>
             <a
-              href="#"
+              href={p.demo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               <ExternalLink size={13} /> Live Demo

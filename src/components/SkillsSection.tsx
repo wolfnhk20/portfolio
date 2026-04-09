@@ -4,25 +4,25 @@ import { Monitor, Server, Database, Wrench } from "lucide-react";
 
 const categories = [
   {
-    title: "Frontend",
-    icon: Monitor,
-    skills: ["React", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "JavaScript"],
-  },
-  {
     title: "Backend",
     icon: Server,
-    skills: ["Java", "Spring Boot", "Spring MVC", "Node.js", "Express", "Hibernate", "JPA"],
+    skills: ["Java", "Spring Boot", "Spring MVC", "Spring Security", "REST APIs", "JWT Authentication", "Hibernate", "JPA"],
   },
   {
     title: "Database",
     icon: Database,
-    skills: ["PostgreSQL", "MySQL", "MongoDB", "Firebase"],
+    skills: ["PostgreSQL", "MySQL", "MongoDB", "Firebase", "Query Optimization", "Database Design", "Migrations"],
   },
   {
     title: "Tools & DevOps",
     icon: Wrench,
-    skills: ["Git", "GitHub", "Docker", "Vercel", "Render", "Postman"],
+    skills: ["Git", "GitHub", "Docker", "Vercel", "Render", "Postman", "Maven", "Linux"],
   },
+  {
+    title: "Frontend",
+    icon: Monitor,
+    skills: ["React", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "JavaScript"],
+  }
 ];
 
 const SkillsSection = () => (

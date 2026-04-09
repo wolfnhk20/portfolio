@@ -5,8 +5,8 @@ import { MapPin, GraduationCap, Target, Trophy } from "lucide-react";
 const details = [
   { icon: MapPin, label: "Location", value: "Pune, India" },
   { icon: GraduationCap, label: "Education", value: "B.E. Computer Engineering - AISSMS COE" },
-  { icon: Target, label: "Focus", value: "Scalable backend systems • REST APIs • AI-driven applications" },
-  { icon: Trophy, label: "Highlight", value: "Turning ideas into products and music into expression!" },
+  { icon: Target, label: "Focus", value: "Scalable Backend Systems • Secure APIs • Authentication & System Design" },
+  { icon: Trophy, label: "Highlight", value: "Building production-ready systems with a focus on performance, security, and real-world impact" },
 ];
 
 const AboutSection = () => (
@@ -17,13 +17,13 @@ const AboutSection = () => (
     <div className="grid md:grid-cols-2 gap-12 items-start">
       <div className="space-y-5 text-muted-foreground leading-relaxed text-[15px]">
         <p>
-          I’m Ayush, a full stack developer and freelance developer who enjoys turning ideas into real, working products. I started out with C, figuring things out from scratch, and gradually moved through Python and the MERN stack before focusing on backend development with Spring Boot.
+          I’m a backend-focused full stack developer specializing in building scalable APIs, secure authentication systems, and production-ready applications using Spring Boot and modern web technologies.
         </p>
         <p>
-          I work on projects that solve real problems, both independently and with clients. From AI-based wildlife detection to PTSD analysis systems, I like building things that go beyond just “another project” and actually create impact.
+          I design systems for real-world use cases, including role-based access control, JWT/OAuth authentication, and efficient database operations with optimized queries. I’ve built and deployed applications ranging from AI-based wildlife detection systems to role-based finance dashboards, with a strong focus on performance, scalability, and usability.
         </p>
         <p>
-          Outside of development, I’m a guitarist. Music has taught me patience, creativity, and discipline the same mindset I bring into coding. Whether it’s refining a guitar solo or building an API, I focus on consistency, clarity, and continuous improvement.
+          Outside of development, I’m a guitarist. Music has shaped my discipline, creativity, and consistency—qualities I bring into building reliable and well-structured software systems.
         </p>
       </div>
 

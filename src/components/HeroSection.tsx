@@ -60,7 +60,7 @@ const HeroSection = () => {
         {/* Title - split for impact */}
         <motion.div variants={fadeUp} className="space-y-1 mb-6">
           <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-foreground">
-            Full Stack Java Developer | Freelancer
+            Backend-Focused Full Stack Developer
           </h2>
           <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-primary/80">
             & Guitarist
@@ -72,9 +72,9 @@ const HeroSection = () => {
           variants={fadeUp}
           className="text-muted-foreground max-w-md mx-auto mb-12 leading-relaxed text-sm md:text-base"
         >
-          Building scalable apps by day,
+          Building Scalable APIs, Secure Systems
           <br className="hidden sm:block" />{" "}
-          creating music that speaks by night.
+          & Production-Ready Applications.
         </motion.p>
 
         {/* CTA Buttons */}

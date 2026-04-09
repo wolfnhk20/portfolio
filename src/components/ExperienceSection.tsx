@@ -3,29 +3,29 @@ import SectionWrapper from "./SectionWrapper";
 
 const items = [
   {
-    year: "2023 - Present",
+    year: "Mar 2023 - Present",
     title: "Freelance Web Developer",
     org: "Self-Employed",
     desc: "Developed responsive and client-focused web applications using React and modern tech stack. Built dynamic frontends, integrated APIs, and delivered optimized solutions based on client requirements.",
   },
   {
-    year: "2025",
-    title: "Business Development Intern",
-    org: "Ayuzera (Virtual)",
-    desc: "Managed lead generation, client communication, product promotion, and CRM workflows.",
+    year: "Dec 2025 - Jan 2026",
+    title: "Java Developer Intern",
+    org: "Codec Technologies",
+    desc: "Engineered REST APIs using Spring Boot with robust validation and optimized database interactions. Built scalable backend components and integrated PostgreSQL for secure and efficient data handling, improving application performance and reliability.",
   },
   {
-    year: "2023",
+    year: "Jun 2023 - Aug 2023",
     title: "Software Development Intern",
     org: "IANT, Pune",
-    desc: "Developed modules using Python and Java. Built form, registration, and database-driven components.",
+    desc: "Developed backend modules using Java and Python, implementing CRUD operations and database-driven workflows. Built form handling systems with validation and optimized SQL queries for improved data processing efficiency.",
   },
 ];
 
 const ExperienceSection = () => (
   <SectionWrapper id="experience">
     <h2 className="font-display text-3xl md:text-4xl font-bold mb-2 text-gradient">
-      Experience & Achievements
+      Experience
     </h2>
     <div className="w-12 h-0.5 bg-primary rounded-full mb-10" />
 
