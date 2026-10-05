@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 .env
+.firecrawl/
+test-results/
+playwright-report/
+tmp/

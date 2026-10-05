@@ -1,67 +1,38 @@
-import { motion } from "framer-motion";
 import SectionWrapper from "./SectionWrapper";
-import { Monitor, Server, Database, Wrench } from "lucide-react";
+import { Jack } from "./hardware";
 
-const categories = [
-  {
-    title: "Backend",
-    icon: Server,
-    skills: ["Java", "Spring Boot", "Spring MVC", "Spring Security", "REST APIs", "JWT Authentication", "Hibernate", "JPA"],
-  },
-  {
-    title: "Database",
-    icon: Database,
-    skills: ["PostgreSQL", "MySQL", "MongoDB", "Firebase", "Query Optimization", "Database Design", "Migrations"],
-  },
-  {
-    title: "Tools & DevOps",
-    icon: Wrench,
-    skills: ["Git", "GitHub", "Docker", "Vercel", "Render", "Postman", "Maven", "Linux"],
-  },
-  {
-    title: "Frontend",
-    icon: Monitor,
-    skills: ["React", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "JavaScript"],
-  }
+/* Content sourced from ayushkulal_resume.pdf — keep in sync */
+const rows = [
+  { bus: "LANG", jacks: ["Java", "Python", "JavaScript", "SQL"] },
+  { bus: "BACKEND", jacks: ["Spring Boot", "Spring Sec", "REST API", "FastAPI", "JPA", "Hibernate"] },
+  { bus: "AI / ML", jacks: ["MCP", "Agentic AI", "RAG", "LangChain", "LangGraph", "LLM Integr.", "Semantic Srch", "Prompt Eng"] },
+  { bus: "DATA", jacks: ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "Redis", "Vector DB"] },
+  { bus: "FRONT", jacks: ["React", "Next.js", "TypeScript", "Tailwind", "HTML", "CSS"] },
+  { bus: "OPS", jacks: ["Docker", "Git", "GitHub", "AWS", "Vercel", "Render", "Railway"] },
+  { bus: "TOOLS", jacks: ["Postman", "Maven", "Webhooks", "OAuth 2.0", "JWT"] },
 ];
 
 const SkillsSection = () => (
-  <SectionWrapper id="skills">
-    <h2 className="font-display text-3xl md:text-4xl font-bold mb-2 text-gradient">Skills</h2>
-    <div className="w-12 h-0.5 bg-primary rounded-full mb-10" />
+  <SectionWrapper id="skills" unit="AK-02" title="PATCHBAY" sub={`${rows.reduce((n, r) => n + r.jacks.length, 0)} points · all normalled`}>
+    <p className="text-sm text-foreground/55 leading-relaxed max-w-xl mb-10">
+      Every point is wired and carries signal — patch anything into anything.
+      The AI/ML bus runs the hottest these days.
+    </p>
 
-    <div className="grid sm:grid-cols-2 gap-5">
-      {categories.map((cat, i) => (
-        <motion.div
-          key={cat.title}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: i * 0.1, duration: 0.5 }}
-          whileHover={{ y: -6, transition: { duration: 0.25 } }}
-          className="glass rounded-2xl p-6 transition-shadow duration-300 hover:glow-gold group"
-        >
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-              <cat.icon size={16} className="text-primary" />
-            </div>
-            <h3 className="text-primary font-display font-semibold text-sm tracking-wide">
-              {cat.title}
-            </h3>
+    <div className="space-y-7">
+      {rows.map((row) => (
+        <div key={row.bus} className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6">
+          <span className="silk silk-bright text-[0.6rem] w-20 shrink-0 pt-2.5">{row.bus}</span>
+          <div className="flex flex-wrap gap-x-2 gap-y-5 group/jack">
+            {row.jacks.map((j) => <Jack key={j} label={j} />)}
           </div>
-          <div className="flex flex-wrap gap-2">
-            {cat.skills.map((s) => (
-              <span
-                key={s}
-                className="text-xs px-3 py-1.5 rounded-lg bg-secondary/80 text-secondary-foreground font-medium transition-colors group-hover:bg-secondary"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+        </div>
       ))}
     </div>
+
+    <p className="mt-10 font-mono-data text-[0.6rem] tracking-widest text-muted-foreground/70 uppercase">
+      note: unbalanced connections tolerated. ground loops debugged, not feared.
+    </p>
   </SectionWrapper>
 );
 

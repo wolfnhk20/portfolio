@@ -1,105 +1,73 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { Led } from "./hardware";
 
-const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Music", href: "#music" },
-  { label: "Contact", href: "#contact" },
-  { label: "Resume", href: "/ayushkulal_resume.pdf", target: "_blank" },
+// Rack map — order matches the units on the page.
+const links = [
+  { unit: "01", label: "preamp", href: "#about" },
+  { unit: "02", label: "patchbay", href: "#skills" },
+  { unit: "03", label: "modules", href: "#projects" },
+  { unit: "04", label: "signal path", href: "#experience" },
+  { unit: "05", label: "monitor", href: "#music" },
+  { unit: "06", label: "i/o", href: "#contact" },
 ];
 
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("");
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-      const sections = navItems.map((n) => n.href.slice(1));
-      for (const id of [...sections].reverse()) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top < 200) {
-          setActive(id);
-          break;
-        }
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed md:relative top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-        ? "glass-strong shadow-lg md:bg-transparent md:shadow-none"
-        : "bg-transparent"
-        }`}
-    >
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
-        <a href="#" className="font-display text-lg font-bold text-primary">
-          Ayush Kulal<span className="text-foreground/40">.</span>
+/**
+ * Cabinet top rail. Always visible — a rack doesn't hide its labels.
+ * Mobile gets a native <details> patch list, no JS.
+ */
+const Navbar = () => (
+  <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-black shadow-[0_1px_0_hsl(42_20%_40%/0.15),0_4px_16px_hsl(0_0%_0%/0.5)]">
+    <div className="max-w-5xl mx-auto px-4 md:px-6">
+      <div className="flex items-center justify-between py-2.5 gap-4">
+        <a href="#" className="flex items-center gap-2.5 min-w-0 group">
+          <Led color="green" />
+          <span className="font-masthead text-base tracking-wide text-foreground group-hover:text-accent transition-colors leading-none pt-0.5">
+            AK-2700
+          </span>
+          <span className="hidden sm:inline font-mono-data text-[0.6rem] tracking-[0.2em] text-muted-foreground uppercase truncate">
+            ayush kulal · mainframe
+          </span>
         </a>
 
-        <ul className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                target={item.target || "_self"}
-                rel={item.target === "_blank" ? "noopener noreferrer" : ""}
-                className={`text-[13px] font-medium transition-colors duration-200 hover:text-primary ${active === item.href.slice(1) ? "text-primary" : "text-muted-foreground"
-                  }`}
-              >
-
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-foreground p-2"
-          aria-label="Toggle menu"
-        >
-          <div className="space-y-1.5">
-            <span className={`block w-5 h-[1.5px] bg-foreground transition-transform duration-300 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-foreground transition-opacity duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-foreground transition-transform duration-300 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
-          </div>
-        </button>
-      </div>
-
-      {mobileOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="md:hidden glass-strong border-t border-border/40"
-        >
-          <ul className="flex flex-col items-center gap-4 py-6">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {item.label}
+        <nav className="hidden md:block" aria-label="rack units">
+          <ul className="flex items-center gap-4">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a href={l.href}
+                  className="font-mono-data text-[0.62rem] tracking-widest uppercase text-muted-foreground hover:text-accent transition-colors">
+                  <span className="text-foreground/35">{l.unit}</span> {l.label}
                 </a>
               </li>
             ))}
+            <li>
+              <a href="/ayushkulal_resume.pdf" target="_blank" rel="noopener noreferrer"
+                className="font-mono-data text-[0.62rem] tracking-widest uppercase px-2 py-1 bg-primary text-primary-foreground hover:bg-primary/85 transition-colors">
+                spec sheet ↓
+              </a>
+            </li>
           </ul>
-        </motion.div>
-      )}
-    </motion.nav>
-  );
-};
+        </nav>
+
+        {/* Mobile: native details menu */}
+        <details className="md:hidden relative">
+          <summary className="list-none cursor-pointer font-mono-data text-[0.62rem] tracking-widest uppercase border border-border px-2.5 py-1.5 select-none text-foreground/80">
+            rack map
+          </summary>
+          <nav className="absolute right-0 mt-2 w-56 bg-card border border-black shadow-[0_8px_24px_hsl(0_0%_0%/0.6)] z-50" aria-label="rack units">
+            {links.map((l) => (
+              <a key={l.href} href={l.href}
+                className="flex items-baseline gap-2.5 px-4 py-3 font-mono-data text-[0.65rem] tracking-widest uppercase text-foreground/80 border-b border-border/50 last:border-0 hover:text-accent">
+                <span className="text-foreground/30">{l.unit}</span> {l.label}
+              </a>
+            ))}
+            <a href="/ayushkulal_resume.pdf" target="_blank" rel="noopener noreferrer"
+              className="block px-4 py-3 font-mono-data text-[0.65rem] tracking-widest uppercase bg-primary text-primary-foreground">
+              spec sheet (pdf) ↓
+            </a>
+          </nav>
+        </details>
+      </div>
+    </div>
+  </header>
+);
 
 export default Navbar;

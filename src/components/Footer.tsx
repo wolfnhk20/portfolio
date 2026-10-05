@@ -1,31 +1,22 @@
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
-
-const socials = [
-  { icon: Github, href: "https://github.com/wolfnhk20", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/ayushkulal/", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:ayushkulal20@gmail.com", label: "Email" },
-  { icon: Instagram, href: "https://www.instagram.com/ayush.strums/", label: "Instagram" },
-];
-
+/** Back-of-cabinet serial sticker. */
 const Footer = () => (
-  <footer className="border-t border-border/40 py-8 px-6">
-    <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p className="text-muted-foreground/60 text-xs">
-        © {new Date().getFullYear()} Ayush Kulal. All rights reserved.
-      </p>
-      <div className="flex gap-4">
-        {socials.map((s) => (
-          <a
-            key={s.label}
-            href={s.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-8 h-8 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary transition-all"
-            aria-label={s.label}
-          >
-            <s.icon size={14} />
-          </a>
-        ))}
+  <footer className="px-2.5 md:px-4 py-8 md:py-10">
+    <div className="max-w-5xl mx-auto flex justify-center md:justify-end">
+      <div className="bg-[hsl(40_6%_10%)] border border-black shadow-[0_3px_10px_hsl(0_0%_0%/0.5)] px-5 py-4 w-full max-w-xs -rotate-1">
+        <div className="flex items-baseline justify-between mb-2.5">
+          <span className="font-masthead text-sm tracking-wide text-foreground/90">AK-2700</span>
+          <span className="font-mono-data text-[0.55rem] tracking-widest text-muted-foreground uppercase">mainframe</span>
+        </div>
+        <div className="barcode mb-2.5 opacity-80" aria-hidden />
+        <div className="font-mono-data text-[0.55rem] leading-relaxed text-muted-foreground tracking-wider uppercase">
+          <p>ser. no. {new Date().getFullYear()}-PNQ-001</p>
+          <p>assembled in pune, india · react / vite / tailwind</p>
+          <p>© {new Date().getFullYear()} ayush kulal — no user-serviceable parts inside</p>
+        </div>
+        <div className="mt-3 pt-2.5 border-t border-border/50 flex items-center justify-between">
+          <span className="font-mono-data text-[0.55rem] tracking-widest text-muted-foreground/70 uppercase">qc: passed ✓</span>
+          <a href="#" className="font-mono-data text-[0.55rem] tracking-widest uppercase ink-link text-foreground/45">↑ top of rack</a>
+        </div>
       </div>
     </div>
   </footer>

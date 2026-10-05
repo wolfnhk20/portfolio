@@ -1,164 +1,99 @@
-import { motion } from "framer-motion";
 import SectionWrapper from "./SectionWrapper";
-import { Mail, Linkedin, Github, Send, Instagram } from "lucide-react";
-import { useState } from "react";
+import { Led } from "./hardware";
+import { useState, FormEvent } from "react";
 import emailjs from "emailjs-com";
 
-const links = [
-  { icon: Mail, label: "Email", href: "mailto:ayushkulal20@gmail.com", text: "ayushkulal20@gmail.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/ayushkulal/", text: "linkedin.com/in/ayushkulal" },
-  { icon: Github, label: "GitHub", href: "https://github.com/wolfnhk20", text: "github.com/wolfnhk20" },
-  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/ayush.strums/", text: "instagram.com/ayush.strums" },
+const outs = [
+  { k: "email", href: "mailto:ayushkulal20@gmail.com", text: "ayushkulal20@gmail.com" },
+  { k: "linkedin", href: "https://www.linkedin.com/in/ayushkulal/", text: "in/ayushkulal" },
+  { k: "github", href: "https://github.com/wolfnhk20", text: "wolfnhk20" },
+  { k: "instagram", href: "https://www.instagram.com/ayush.strums/", text: "@ayush.strums" },
 ];
 
 const ContactSection = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const sendEmail = (e: any) => {
-    e.preventDefault();
-
-    if (!validate()) return;
-
-    setLoading(true);
-    setStatus("");
-
-    emailjs
-    emailjs.sendForm(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      e.target,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    ).then(() => {
-      setStatus("Message sent. I will get back to you soon.");
-      setLoading(false);
-      e.target.reset();
-    }).catch((error) => {
-      console.error(error);
-      setStatus("Failed to send message. Try again later.");
-      setLoading(false);
-    });
-  };
+  const [errors, setErrors] = useState({ name: "", email: "", message: "" });
 
   const validate = () => {
-    let valid = true;
-    let newErrors = { name: "", email: "", message: "" };
+    const e = { name: "", email: "", message: "" }; let ok = true;
+    if (!form.name.trim()) { e.name = "required"; ok = false; }
+    if (!form.email.trim()) { e.email = "required"; ok = false; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) { e.email = "invalid email"; ok = false; }
+    if (!form.message.trim()) { e.message = "required"; ok = false; }
+    setErrors(e); return ok;
+  };
 
-    // Name
-    if (!form.name.trim()) {
-      newErrors.name = "Name is required";
-      valid = false;
-    }
-
-    // Email regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required";
-      valid = false;
-    } else if (!emailRegex.test(form.email)) {
-      newErrors.email = "Enter a valid email";
-      valid = false;
-    }
-
-    // Message
-    if (!form.message.trim()) {
-      newErrors.message = "Message cannot be empty";
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
+  const send = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); if (!validate()) return;
+    // Honeypot — bots fill every field; humans never see this one.
+    const hp = (e.currentTarget.elements.namedItem("company") as HTMLInputElement)?.value;
+    if (hp) { setStatus("signal received. i'll reply soon."); return; }
+    setLoading(true);
+    const form_el = e.currentTarget;
+    emailjs.sendForm(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, form_el, import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
+      .then(() => { setStatus("signal received. i'll reply soon."); setLoading(false); setForm({ name: "", email: "", message: "" }); form_el.reset(); })
+      .catch(() => { setStatus("transmission failed — patch direct to email above."); setLoading(false); });
   };
 
   return (
-    <SectionWrapper id="contact">
-      <h2 className="font-display text-3xl md:text-4xl font-bold mb-2 text-gradient">
-        Get in Touch
-      </h2>
-      <div className="w-12 h-0.5 bg-primary rounded-full mb-10" />
-
-      <div className="grid md:grid-cols-2 gap-10">
-        <div className="space-y-6">
-          <p className="text-muted-foreground leading-relaxed text-[15px]">
-            Have a project idea, want to collaborate, or just say hello? I'd love to hear from you.
+    <SectionWrapper id="contact" unit="AK-06" title="I/O" sub="inputs monitored daily">
+      <div className="grid md:grid-cols-2 gap-12 md:gap-16 max-w-4xl">
+        <div className="space-y-8">
+          <p className="text-sm text-foreground/60 leading-[1.85] max-w-sm">
+            Got a project, an internship, or a strong opinion about retrieval
+            strategies? Patch into any output below, or push signal through the
+            input stage on the right.
           </p>
-          <div className="space-y-4">
-            {links.map((l) => (
-              <motion.a
-                key={l.label}
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 4 }}
-                className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
-              >
-                <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                  <l.icon size={14} className="text-primary" />
+          <div className="max-w-sm">
+            <p className="silk text-[0.6rem] mb-2">direct outs</p>
+            <div className="font-mono-data text-[0.68rem]">
+              {outs.map((o) => (
+                <div key={o.k} className="flex items-baseline py-2">
+                  <span className="text-accent/80 uppercase tracking-widest shrink-0">{o.k}</span>
+                  <span className="leader" />
+                  <a href={o.href}
+                    target={o.href.startsWith("mailto") ? undefined : "_blank"}
+                    rel="noopener noreferrer"
+                    className="ink-link text-foreground/60">
+                    {o.text}
+                  </a>
                 </div>
-                <span className="text-sm">{l.text}</span>
-              </motion.a>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        <form
-          onSubmit={sendEmail}
-          className="glass rounded-2xl p-6 space-y-4"
-        >
-          <input
-            type="text"
-            name="name"
-            placeholder="Your name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className={`w-full bg-secondary/40 border border-border/60 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/30 transition ${errors.name ? "border-red-500" : ""}`}
-          />
-          {errors.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name}</p>
-          )}
-          <input
-            type="email"
-            name="email"
-            placeholder="Your email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className={`w-full bg-secondary/40 border border-border/60 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/30 transition ${errors.email ? "border-red-500" : ""}`}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-          )}
-          <textarea
-            placeholder="Your message"
-            name="message"
-            rows={4}
-            value={form.message}
-            onChange={(e) => setForm({ ...form, message: e.target.value })}
-            className={`w-full bg-secondary/40 border border-border/60 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/30 transition resize-none ${errors.message ? "border-red-500" : ""}`}
-          />
-          {errors.message && (
-            <p className="text-red-500 text-xs mt-1">{errors.message}</p>
-          )}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:brightness-110 transition-all duration-300 glow-gold hover:glow-gold-hover flex items-center justify-center gap-2 disabled:opacity-60"
-          >
-            {loading ? "Sending..." : (
-              <>
-                <Send size={14} />
-                Send Message
-              </>
-            )}
+        <form onSubmit={send} className="space-y-4 relative">
+          <p className="silk text-[0.6rem]">input stage</p>
+          <div>
+            <input type="text" name="name" placeholder="YOUR NAME" aria-label="your name"
+              value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}
+              className="hw-input" />
+            {errors.name && <p className="text-primary text-[0.65rem] mt-1.5 font-mono-data tracking-widest uppercase">⚠ {errors.name}</p>}
+          </div>
+          {/* Honeypot field — hidden from humans, catches bots */}
+          <input type="text" name="company" tabIndex={-1} autoComplete="off"
+            className="absolute -left-[9999px] h-0 w-0 opacity-0" aria-hidden="true" />
+          <div>
+            <input type="email" name="email" placeholder="YOUR EMAIL" aria-label="your email"
+              value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
+              className="hw-input" />
+            {errors.email && <p className="text-primary text-[0.65rem] mt-1.5 font-mono-data tracking-widest uppercase">⚠ {errors.email}</p>}
+          </div>
+          <div>
+            <textarea name="message" placeholder="YOUR MESSAGE" rows={5} aria-label="your message"
+              value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}
+              className="hw-input resize-none" />
+            {errors.message && <p className="text-primary text-[0.65rem] mt-1.5 font-mono-data tracking-widest uppercase">⚠ {errors.message}</p>}
+          </div>
+          <button type="submit" disabled={loading} className="hw-btn hw-btn-red disabled:opacity-50 disabled:pointer-events-none">
+            ● {loading ? "transmitting…" : "rec / send"}
           </button>
           {status && (
-            <p className="text-sm text-center mt-2 text-primary">
-              {status}
+            <p className="flex items-center gap-2 text-[0.65rem] font-mono-data tracking-widest text-foreground/60 uppercase">
+              <Led color="green" /> {status}
             </p>
           )}
         </form>
