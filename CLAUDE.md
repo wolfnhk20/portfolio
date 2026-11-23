@@ -1,139 +1,93 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-**Ayush Kulal Portfolio** — A personal portfolio website redesigned as a component datasheet (paper/ink aesthetic). Single-page React app with Vite, Tailwind CSS, and framer-motion animations. Sections map to datasheet clauses: 1-DESCRIPTION (Hero), 2-SPECIFICATIONS (Skills), 3-TYPICAL APPLICATIONS (Projects), 4-ABSOLUTE MAXIMUM RATINGS (About), 5-REVISION HISTORY (Experience), 6-AUX FUNCTIONS (Music), 7-ORDERING INFORMATION (Contact).
+**Ayush Kulal Portfolio** — single-page personal portfolio, configured for GitHub Pages deployment (`.github/workflows/deploy.yml`). Vite + React 18 + TypeScript + Tailwind, with a hand-written CSS design system. No backend: the contact form posts through EmailJS.
 
-**Tech Stack:** React 18, TypeScript, Vite 5, Tailwind CSS 3.4, framer-motion 12, Radix UI primitives, React Router 6, TanStack Query 5, EmailJS for contact form.
+The site is a "signal studio": citron paper, cobalt blue, a procedural canvas sculpture in the hero, and scroll-driven typography.
 
 ## Commands
 
 ```bash
-# Development
-npm run dev          # Start dev server on :8080
-npm run build        # Production build to dist/
-npm run build:dev    # Development mode build
-npm run preview      # Preview production build
+npm run dev            # Dev server on :8080
+npm run build          # Production build to dist/
+npm run preview        # Preview the production build
 
-# Code Quality
-npm run lint         # ESLint (typescript-eslint + react-hooks + react-refresh)
+npm run lint           # ESLint (typescript-eslint + react-hooks + react-refresh)
+npx tsc --noEmit -p tsconfig.app.json   # Type check
 
-# Testing
-npm run test         # Vitest run (jsdom)
-npm run test:watch   # Vitest watch mode
-npm run test -- --run src/test/example.test.ts  # Single test file
+npm run test           # Vitest run (jsdom)
+npx playwright test    # E2E — builds + previews on :4174 first
 ```
 
 ## Architecture
 
-### Route Structure
+Everything hangs off one page. There is no router.
+
 ```
 src/
-├── main.tsx                    # App entry, providers (QueryClient, Tooltip, Toaster, Router)
-├── App.tsx                     # Routes: "/" → Index, "*" → NotFound
+├── main.tsx                      # createRoot → <App/>
+├── App.tsx                       # pathname === "/" ? <Index/> : <NotFound/>
+├── index.css                     # Design system: tokens, layout, hero, responsive, motion
 ├── pages/
-│   ├── Index.tsx               # Single-page composition of all sections
-│   └── NotFound.tsx
-├── components/
-│   ├── SectionWrapper.tsx      # Standard section chrome: rule, kicker, serif title, aside
-│   ├── HeroSection.tsx         # Clause 1: Masthead, DIP-16 pin diagram SVG, features, TOC
-│   ├── AboutSection.tsx        # Clause 4: Device photo, absolute max ratings table
-│   ├── SkillsSection.tsx       # Clause 2: Electrical characteristics table
-│   ├── ProjectsSection.tsx     # Clause 3: Application figures with crop marks
-│   ├── ExperienceSection.tsx   # Clause 5: Revision history table
-│   ├── MusicSection.tsx        # Clause 6: Aux functions
-│   ├── ContactSection.tsx      # Clause 7: Ordering info + EmailJS form
-│   ├── Navbar.tsx              # Datasheet header bar (fixed, scroll-spy)
-│   ├── Footer.tsx              # Disclaimer block
-│   ├── ScrollProgress.tsx      # REMOVE per spec
-│   ├── BackToTop.tsx           # REMOVE per spec
-│   └── ui/                     # Radix-based primitives (30+ components)
-├── hooks/                      # use-mobile, use-toast
-├── lib/utils.ts                # cn() = clsx + tailwind-merge
-└── index.css                   # Datasheet theme: CSS custom properties, utilities
+│   ├── Index.tsx                 # Nav + hero + section composition
+│   └── NotFound.tsx              # The only file using Tailwind utility classes
+├── components/studio/
+│   ├── SignalSculpture.tsx       # Canvas 2D torus-torus, pointer-reactive
+│   ├── useStudioMotion.ts        # IntersectionObserver → Web Animations API reveals
+│   ├── Projects.tsx + projects.css
+│   ├── Opportunities.tsx + opportunities.css
+│   ├── Story.tsx + story.css
+│   └── Contact.tsx               # EmailJS + honeypot
+└── test/                         # Vitest
 ```
 
-### Section Composition Pattern
-All sections use `SectionWrapper`:
-```tsx
-<SectionWrapper
-  id="section-id"
-  num="01"           // clause number
-  label="description" // clause title lowercase
-  title={<>Clause <em className="text-primary">Title</em>.</>}
-  aside="optional note"
->
-  {/* section content */}
-</SectionWrapper>
-```
+Section order on the page: **hero → Projects (#projects) → Opportunities (#opportunities) → Story (#about, #experience, #skills, #music) → Contact (#contact)**.
 
-### Datasheet Design System (index.css + tailwind.config.ts)
+`Story.tsx` renders four `<section>`s from one component. Add a section by creating a file in `components/studio/` and importing it in `Index.tsx`.
 
-**Color Palette (CSS custom properties):**
-- `--background`: 47 26% 94% (paper)
-- `--foreground`: 45 21% 10% (ink)
-- `--primary`: 8 76% 42% (signal red)
-- `--secondary`: 46 16% 87% (table header gray)
-- `--border`: 45 21% 10% (ink rules, not gray)
-- `--radius`: 0rem (sharp corners)
+## Styling
 
-**Typography:**
-- Masthead: Anton (`.font-masthead`)
-- UI/Body: Archivo (sans in tailwind.config)
-- Mono/Data: IBM Plex Mono (`.font-mono-data`)
-- Clause labels: `.clause` (Archivo 700, uppercase, 0.08em tracking)
+Tailwind is installed but effectively unused. The live JSX uses custom class names (`studio-hero`, `sp-title-row`, `story-about`) defined in `index.css` and `studio/*.css`. Only `NotFound.tsx` uses real Tailwind utilities — so **don't remove Tailwind**, and keep `tailwind.config.ts` `content` scoped to live files.
 
-**Key Utilities (index.css):**
-- `.clause` — numbered clause header
-- `.leader` — dotted leader between label/value
-- `.ink-link` — red underline link, fills red on hover
-- `.stamp` — rotated rubber-stamp badge
-- `.cropmarks` — figure registration marks
-- `.ds-table` — hairline data tables (ink borders, gray header band)
+CSS is written minified on single lines. Match that style when editing.
 
-**Print Stylesheet:** `@media print` hides header, forms, `.no-print`; forces white background.
+## Three things that carry the site
 
-### Data Sources (Keep in Sync with Resume PDF)
-- `HeroSection.tsx`: Pin diagram, features, TOC links
-- `AboutSection.tsx`: Device photo, absolute max ratings table, facts, git-log timeline
-- `SkillsSection.tsx`: Electrical characteristics table (branches = parameter groups)
-- `ProjectsSection.tsx`: Application figures with crop marks, archive list
-- `ExperienceSection.tsx`: Revision history table
-- `MusicSection.tsx`: Aux functions (liner notes table)
-- `ContactSection.tsx`: Ordering information + EmailJS form (honeypot field)
+**1. `SignalSculpture.tsx`** — a 3D sculpture on 2D canvas. 132 pre-computed rings (64 on mobile), `Float32Array` vertex buffers, painter's-algorithm depth sort, perspective divide per vertex. It follows the pointer with a rAF lerp, throttles to 30fps (24 mobile), and stops when offscreen or the tab is hidden. No Three.js. It early-returns if `Element.prototype.animate` is missing.
 
-### Contact Form (EmailJS)
-Env vars (Vite): `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`.
-Honeypot: hidden `name="company"` field — bots fill it, humans never see it.
+**2. `useStudioMotion.ts`** — one `IntersectionObserver` over `[data-reveal]` elements, playing Web Animations API keyframes. Three modes: `rise` (default), `wipe`, `tilt`. Elements unobserve after animating once. Skipped entirely when motion is off.
 
-### Path Aliases
-`@/*` → `./src/*` (tsconfig.app.json + vite.config.ts)
+**3. The motion kill-switch — three layers.** Respect all three:
+- OS `prefers-reduced-motion`
+- A user toggle persisted at `localStorage['ak-motion-paused']`
+- `data-motion="off"` on `<html>`, which CSS reads to zero every animation/transition
 
-## Common Tasks
+Plus `@supports(animation-timeline: scroll())` drives the hero recede and the reading-progress bar in pure CSS with no JS.
 
-**Add a project:** Edit `featured[]` or `archive[]` in `ProjectsSection.tsx`. Add screenshot to `public/` if featured.
+## Contact Form (EmailJS)
 
-**Update bio/facts:** Edit `facts[]` and `commits[]` in `AboutSection.tsx`. Keep in sync with `public/ayushkulal_resume.pdf`.
+Env vars: `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`. Missing values surface as a visible error state, not a silent no-op.
 
-**Add a section:** Create component in `components/`, import in `Index.tsx`, wrap with `SectionWrapper`.
+Honeypot: hidden `name="company"` field. Bots fill it; the handler fakes success. `sending.current` ref guards double submits.
 
-**Change theme colors:** Edit CSS custom properties in `index.css` `:root` block. Tailwind references them via `hsl(var(--token))`.
+## Dependencies
 
-**Run single test:** `npm run test -- --run src/test/example.test.ts`
+Deliberately minimal — four runtime deps: `react`, `react-dom`, `lucide-react`, `emailjs-com`. This was pruned from ~50 in the dead-code cleanup (2026-10). **Don't add a dependency for something a few lines of native code handles.** Before adding one, confirm it isn't already installed and that it's not replaceable with the platform.
 
-## Key Files to Know
-- `src/index.css` — complete datasheet design system
-- `tailwind.config.ts` — font families, color mappings, animations
-- `src/components/SectionWrapper.tsx` — section chrome contract
-- `src/components/HeroSection.tsx` — most complex section (SVG pin diagram, TOC)
-- `src/components/ProjectsSection.tsx` — figures with crop marks, alternating layout
-- `src/components/ContactSection.tsx` — EmailJS integration pattern
-- `vite.config.ts` — alias, dev server port 8080, lovable-tagger in dev
+## Testing
 
-## Current Spec Work (per todo list)
-- Remove `ScrollProgress` and `BackToTop` components + imports
-- Update `Index.tsx` section order to match datasheet clauses 1–7
-- Update `index.html`: theme-color, favicon, datasheet preview.png OG image
-- Build, screenshot, verify print stylesheet
+- `tests/portfolio.spec.ts` — 13 Playwright specs covering responsive overflow at 320/390/1440px, local fonts, canvas offscreen pausing, motion preference persistence, mobile nav + Escape, contact validation/send/failure, the résumé PDF, and the 404 page.
+- `src/test/example.test.ts` — placeholder Vitest.
+
+Run Playwright after any change that touches `index.css`, `studio/*.css`, motion handling, or the contact form.
+
+## Conventions
+
+- Named imports from `lucide-react`, never icon components inlined.
+- Data lives as module-level `const` arrays above the component (`projects`, `experiments`, `roles`, `skillGroups`, `strings` in `Story.tsx`).
+- Accessibility is deliberate, not incidental: skip link, focus restoration on Escape, `aria-invalid` + `aria-describedby` on form errors, `sr-only` text on external links, `target="_blank"` always paired with `rel`.
+- No comments explaining *what*; comments explain *why* (e.g. why rotation is factored per-ring, why frame work is budgeted).
+- Accessibility basics, input validation, and the honeypot are not to be simplified away.

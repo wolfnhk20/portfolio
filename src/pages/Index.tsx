@@ -6,6 +6,7 @@ import Story from '@/components/studio/Story';
 import Contact from '@/components/studio/Contact';
 import Opportunities from '@/components/studio/Opportunities';
 import { useStudioMotion } from '@/components/studio/useStudioMotion';
+import { asset } from '@/lib/asset';
 
 /* THESIS: A signal studio for a software engineer who plays guitar.
  * OWN-WORLD: Citron fields, cobalt sculpture, open paper, expressive rounded type.
@@ -37,8 +38,15 @@ export default function Index() {
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
-    const close = (event: KeyboardEvent) => { if (event.key === 'Escape' && menuOpen) { setMenuOpen(false); menuButton.current?.focus(); } };
-    document.addEventListener('keydown', close); return () => document.removeEventListener('keydown', close);
+    if (!menuOpen) return;
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMenuOpen(false); menuButton.current?.focus(); } };
+    const desktop = window.matchMedia('(min-width: 761px)');
+    const onResize = () => { if (desktop.matches) setMenuOpen(false); };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', close);
+    desktop.addEventListener('change', onResize);
+    return () => { document.body.style.overflow = prevOverflow; document.removeEventListener('keydown', close); desktop.removeEventListener('change', onResize); };
   }, [menuOpen]);
   const toggleMotion = () => { const next = !paused; setPaused(next); try { localStorage.setItem('ak-motion-paused', String(next)); } catch { /* Preference still works without storage. */ } };
   return <div className="studio" id="top">
@@ -46,8 +54,8 @@ export default function Index() {
     <header className="studio-header"><div className="wrap nav-inner">
       <a className="wordmark" href="#top" aria-label="Ayush Kulal, home"><Asterisk size={30} strokeWidth={2.4} aria-hidden="true" /><span>ayush kulal</span></a>
       <nav className="desktop-nav" aria-label="Main navigation">{links.map(link => <a key={link.href} href={link.href} aria-current={active === link.href ? 'location' : undefined}>{link.label}</a>)}</nav>
-      <div className="nav-actions"><button className="motion-toggle" onClick={toggleMotion} disabled={!!reduced} title={reduced ? 'Reduced motion enabled in your device settings' : undefined} aria-label={reduced ? 'Motion off: device preference' : paused ? 'Enable motion' : 'Pause motion'} aria-pressed={motionOff}>{motionOff ? <Play size={13} /> : <Pause size={13} />}<span>Motion {motionOff ? 'off' : 'on'}</span></button><a className="nav-resume" href="/resume_ayush.pdf" target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={15} /></a><button ref={menuButton} className="menu-toggle icon-button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button></div>
-    </div>{menuOpen && <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">{links.map(link => <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>{link.label}<ArrowUpRight size={21} /></a>)}<a href="#opportunities" onClick={() => setMenuOpen(false)}>Hire / collaborate <ArrowUpRight size={21} /></a><a href="/resume_ayush.pdf" target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>Résumé <ArrowUpRight size={21} /></a></nav>}<span className="reading-progress" aria-hidden="true" /></header>
+      <div className="nav-actions"><button className="motion-toggle" onClick={toggleMotion} disabled={!!reduced} title={reduced ? 'Reduced motion enabled in your device settings' : undefined} aria-label={reduced ? 'Motion off: device preference' : paused ? 'Enable motion' : 'Pause motion'} aria-pressed={motionOff}>{motionOff ? <Play size={13} /> : <Pause size={13} />}<span>Motion {motionOff ? 'off' : 'on'}</span></button><a className="nav-resume" href={asset('resume_ayush.pdf')} target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={15} /></a><button ref={menuButton} className="menu-toggle icon-button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button></div>
+    </div>{menuOpen && <><div className="mobile-nav-backdrop" aria-hidden="true" onClick={() => setMenuOpen(false)} /><nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">{links.map(link => <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>{link.label}<ArrowUpRight size={21} /></a>)}<a href="#opportunities" onClick={() => setMenuOpen(false)}>Hire / collaborate <ArrowUpRight size={21} /></a><a href={asset('resume_ayush.pdf')} target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>Résumé <ArrowUpRight size={21} /></a></nav></>}<span className="reading-progress" aria-hidden="true" /></header>
     <main id="main"><section className="studio-hero" aria-labelledby="hero-title"><div className="wrap hero-wrap">
       <div className="hero-topline"><span>Software engineer / guitarist / biker</span><span>Pune, India <span className="local-dot" /></span></div>
       <div className="hero-composition"><h1 id="hero-title" className="hero-name" aria-label="Ayush Kulal">{['AYUSH', 'KULAL'].map((word, i) => <span className="name-line" key={word} aria-hidden="true"><span>{[...word].map((letter, j) => <span className="hero-letter" key={j} style={{ '--letter-index': i * 3 + j } as CSSProperties}>{letter}</span>)}<span className="name-period">.</span></span></span>)}</h1><div className="hero-object"><SignalSculpture paused={motionOff} /><div className="object-caption"><span className="crosshair" aria-hidden="true">+</span><span>A signal loop.<br />{motionOff ? 'Motion paused.' : 'It follows your pointer.'}</span><span className="object-hint">{motionOff ? 'Enable motion to turn it.' : 'Move your pointer to turn it.'}</span></div></div></div>

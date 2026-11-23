@@ -1,5 +1,6 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { ArrowUpRight, Check, Copy, Send } from 'lucide-react';
+import { asset } from '@/lib/asset';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -38,7 +39,7 @@ export default function Contact() {
       <p>If you’re hiring, tell me about the role. If you need a website or web app, tell me what you want to build.</p>
       <div className="email-row"><a href="mailto:ayushkulal20@gmail.com">ayushkulal20@gmail.com</a><button className="icon-button" onClick={copy} aria-label={copied ? 'Email address copied' : 'Copy email address'}>{copied ? <Check size={18} /> : <Copy size={18} />}</button></div>
       <p className="copy-status" role="status">{copyFailed ? 'Select the email address to copy it, or click it to open your email app.' : copied ? 'Email address copied.' : ''}</p>
-      <div className="contact-socials"><a href="https://github.com/wolfnhk20" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={16} /></a><a href="https://www.linkedin.com/in/ayushkulal/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={16} /></a><a href="/resume_ayush.pdf" target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={16} /></a></div>
+      <div className="contact-socials"><a href="https://github.com/wolfnhk20" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={16} /></a><a href="https://www.linkedin.com/in/ayushkulal/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={16} /></a><a href={asset('resume_ayush.pdf')} target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={16} /></a></div>
     </div><form noValidate onSubmit={submit} className="contact-form" aria-label="Send Ayush a message" aria-busy={status === 'sending'}>
       <div className="form-pair">{(['name', 'email'] as const).map(field => <div className="form-field" key={field}><label htmlFor={`contact-${field}`}>{field === 'name' ? 'Your name' : 'Email address'}</label><input id={`contact-${field}`} name={field} type={field === 'email' ? 'email' : 'text'} autoComplete={field} maxLength={field === 'name' ? 100 : 254} required readOnly={status === 'sending'} aria-invalid={!!errors[field]} aria-describedby={errors[field] ? `${field}-error` : undefined} placeholder={field === 'name' ? 'What should I call you?' : 'you@example.com'} />{errors[field] && <span className="field-error" id={`${field}-error`}>{errors[field]}</span>}</div>)}</div>
       <div className="form-field"><label htmlFor="contact-message">Your message</label><textarea id="contact-message" name="message" rows={3} maxLength={5000} required readOnly={status === 'sending'} aria-invalid={!!errors.message} aria-describedby={errors.message ? 'message-error' : undefined} placeholder="Tell me about the role or your project…" />{errors.message && <span className="field-error" id="message-error">{errors.message}</span>}</div>

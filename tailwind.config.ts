@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import tailwindcssAnimate from "tailwindcss-animate";
 export default {
   darkMode: ["class"],
   // Scan the active app, not archived sections or unused UI templates.
@@ -28,19 +27,6 @@ export default {
         card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" },
       },
       borderRadius: { lg: "var(--radius)", md: "calc(var(--radius) - 2px)", sm: "calc(var(--radius) - 4px)" },
-      keyframes: {
-        "blink": { "0%,100%": { opacity: "1" }, "50%": { opacity: "0" } },
-        "fade-up": { "0%": { opacity: "0", transform: "translateY(20px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
-        "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
-        "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
-      },
-      animation: {
-        "blink": "blink 1s step-end infinite",
-        "fade-up": "fade-up 0.5s ease-out forwards",
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
     },
   },
-  plugins: [tailwindcssAnimate],
 } satisfies Config;

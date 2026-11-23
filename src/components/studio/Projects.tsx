@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowUpRight, ChevronDown, Code2, Database, FileSearch, GitBranch, Layers3 } from "lucide-react";
 import { useEffect, useRef, type PointerEvent } from "react";
+import { asset } from "@/lib/asset";
 import "./projects.css";
 
 function usePreviewTilt() {
@@ -40,8 +41,8 @@ const projects = [
     stack: ["FastAPI", "LangGraph", "Next.js", "Supabase"],
     details: [
       "GitHub OAuth connects repositories; webhooks trigger an audit when code changes.",
-      "LangGraph agents coordinate code analysis and write the audit reports.",
-      "The dashboard streams execution logs so you can follow each audit stage.",
+      "LangGraph agents coordinate code analysis and generate structured AI findings.",
+      "Streams live execution stages on the dashboard; frontend deployed on Vercel and API on Render.",
     ],
   },
   {
@@ -139,7 +140,7 @@ export default function Projects() {
             <div className="sp-qa-caption" aria-hidden="true"><span><GitBranch size={18} /> From commit to audit report</span><span>QAForge</span></div>
             <div className="sp-qa-orbit sp-qa-orbit-one" aria-hidden="true" />
             <div className="sp-qa-orbit sp-qa-orbit-two" aria-hidden="true" />
-            <img className="sp-qa-screen" src="/qaforge.webp" srcSet="/qaforge-960.webp 960w, /qaforge.webp 1919w" sizes="(max-width: 760px) calc(106vw - 47px), (max-width: 1340px) calc(85vw - 109px), 1030px" alt="QAForge dashboard showing a connected repository and streamed audit execution logs" width="1919" height="875" loading="lazy" decoding="async" />
+            <img className="sp-qa-screen" src={asset("qaforge.webp")} srcSet={`${asset("qaforge-960.webp")} 960w, ${asset("qaforge.webp")} 1919w`} sizes="(max-width: 760px) calc(106vw - 47px), (max-width: 1340px) calc(85vw - 109px), 1030px" alt="QAForge dashboard showing a connected repository and streamed audit execution logs" width="1919" height="875" loading="lazy" decoding="async" />
             <span className="sp-stage-visit">Explore project <ArrowUpRight size={18} aria-hidden="true" /></span>
           </a>
           <ProjectStory project={projects[0]} />
@@ -154,7 +155,7 @@ export default function Projects() {
             <a className="sp-stage sp-stage-bloom" data-reveal="wipe" {...tilt} href={projects[2].demo} target="_blank" rel="noopener noreferrer" aria-label="Explore Bloom Events live demo (opens in a new tab)">
               <span className="sp-bloom-caption" aria-hidden="true">Book your<br />next event.</span>
               <div className="sp-bloom-flower" aria-hidden="true">✳</div>
-              <img className="sp-bloom-screen" src="/bloom.webp" srcSet="/bloom-960.webp 960w, /bloom.webp 1918w" sizes="(max-width: 760px) calc(126vw - 55px), (max-width: 1000px) 50vw, 650px" alt="Bloom Events booking website with package selection and event details" width="1918" height="882" loading="lazy" decoding="async" />
+              <img className="sp-bloom-screen" src={asset("bloom.webp")} srcSet={`${asset("bloom-960.webp")} 960w, ${asset("bloom.webp")} 1918w`} sizes="(max-width: 760px) calc(126vw - 55px), (max-width: 1000px) 50vw, 650px" alt="Bloom Events booking website with package selection and event details" width="1918" height="882" loading="lazy" decoding="async" />
               <span className="sp-stage-visit">Explore project <ArrowUpRight size={18} aria-hidden="true" /></span>
             </a>
             <ProjectStory project={projects[2]} />

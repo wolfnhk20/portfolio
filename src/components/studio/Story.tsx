@@ -1,35 +1,36 @@
 import { useEffect, useRef, useState } from "react";
+import { asset } from "@/lib/asset";
 import "./story.css";
 
 const roles = [
   {
-    company: "SpurQLabs", role: "AI Agent Developer Intern", date: "Jun 2026 — present",
-    intro: "Building AI agents for performance testing and marketing workflows.",
+    company: "SpurQLabs", role: "AI Agent Developer Intern", date: "Jun 2026 — Dec 2026",
+    intro: "Building AI agents for performance testing, multi-org sales workflows, and incident triage.",
     details: [
-      "A four-agent performance testing pipeline that turns HAR/Cucumber flows into JMeter plans, runs load, spike, and soak tests, and analyzes JTL results in HTML and JSON reports.",
-      "Reusable test flows with dynamic requests, login and JWT refresh, PerfMon server metrics, historical comparisons, and page-level frontend timing.",
-      "Helped turn an internal marketing-agent system into a configurable, multi-organization product with 62+ MCP tools, Apollo workflows, and a browser extension.",
-      "Organization-aware RAG with PostgreSQL/pgvector, access controls, row-level security, cross-tenant regression tests, and safeguards for untrusted content.",
-      "Observability workflows with Datadog, Prometheus, Grafana, Loki, and Promtail to investigate metrics and logs, correlate findings, and report evidence-backed incident candidates.",
+      "Built a four-agent pipeline that turns HAR/Cucumber flows into JMeter plans, runs load, spike, and soak tests, and reports JTL results — cutting test authoring ~85% (4 hours to under 30 minutes).",
+      "Made test flows reusable across apps via dynamic requests, login, and JWT refresh, saving ~30% of test-maintenance time per release; added PerfMon metrics, historical comparisons, and frontend timing.",
+      "Helped turn an internal agent system into a multi-organization sales-agent platform with 83+ MCP tools; autonomous lead research, enrichment, and outreach workflows cut manual sales effort ~75%.",
+      "Implemented organization-aware RAG with PostgreSQL/pgvector, access controls, and Row Level Security; 40+ regression tests now guard cross-tenant access at zero isolation failures.",
+      "Developed observability workflows on Datadog, Prometheus, Grafana, Loki, and Promtail, cutting incident triage from hours to ~30 minutes with evidence-backed incident candidates.",
     ],
   },
   {
     company: "Anchorlit", role: "Product Lead & Engineer · Self-employed", date: "Jul 2024 — Jun 2026",
-    intro: "Took client web applications from requirements to deployment.",
-    details: ["Owned requirements, product decisions, engineering, and delivery for client websites and web applications. Built the frontend and backend, including API design, deployment, and maintenance."],
+    intro: "Delivered client websites and web apps from requirements to deployment.",
+    details: ["Delivered websites and web applications for clients, from requirements and API design through deployment and maintenance."],
   },
   {
     company: "Codec Technologies", role: "Java Developer Intern", date: "Dec 2025 — Jan 2026",
-    intro: "Developing REST APIs and working with relational data.",
-    details: ["Built backend services and REST endpoints with Java and Spring Boot, and improved SQL queries for application workflows."],
+    intro: "Built Spring Boot REST endpoints and tuned slow SQL queries.",
+    details: ["Built Spring Boot REST endpoints and tuned SQL queries, cutting slow-query response times ~25%."],
   },
 ];
 
 const skillGroups = [
-  { title: "Backend foundations", description: "APIs, authentication, and backend services.", tools: ["Java", "Python", "Spring Boot", "Spring Security", "FastAPI", "REST APIs", "OAuth 2.0 / JWT / RBAC"] },
-  { title: "AI systems", description: "Agent workflows, retrieval, and tool integrations.", tools: ["MCP / FastMCP", "LangChain", "LangGraph", "RAG", "LLM integrations", "Semantic search", "Prompt engineering"] },
-  { title: "Data & delivery", description: "Databases, deployment, and monitoring.", tools: ["PostgreSQL / pgvector", "MySQL", "Redis", "Docker", "AWS", "Grafana / Prometheus", "Datadog / Loki / Promtail"] },
-  { title: "The complete picture", description: "Frontend development, integration, and testing.", tools: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Git", "JMeter / PerfMon", "Playwright"] },
+  { title: "Backend foundations", description: "APIs, authentication, and backend services.", tools: ["Java", "Python", "Spring Boot", "Spring Security", "FastAPI", "REST APIs", "JPA / Hibernate", "OAuth 2.0 / JWT / RBAC"] },
+  { title: "AI systems", description: "Agent workflows, retrieval, and tool integrations.", tools: ["MCP / FastMCP", "LangGraph", "LangChain", "RAG", "LLM integration", "Semantic search", "Prompt engineering"] },
+  { title: "Data & delivery", description: "Databases, deployment, and monitoring.", tools: ["PostgreSQL / pgvector", "MySQL / MongoDB", "Redis / Supabase", "Docker", "AWS", "Grafana / Prometheus", "Datadog / Loki / Promtail"] },
+  { title: "The complete picture", description: "Frontend development, integration, and testing.", tools: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Git / GitHub", "JMeter / PerfMon", "Playwright"] },
 ];
 
 const strings = [
@@ -113,7 +114,7 @@ export default function Story() {
             </div>
           </div>
           <figure className="story-portrait" data-reveal="tilt">
-            <div className="story-portrait-mat"><img src="/ayush-portrait.webp" alt="Ayush Kulal holding up two peace signs" width="800" height="1000" loading="lazy" decoding="async" /></div>
+            <div className="story-portrait-mat"><img src={asset("ayush-portrait.webp")} srcSet={`${asset("ayush-portrait-540.webp")} 540w, ${asset("ayush-portrait.webp")} 800w`} sizes="(max-width: 760px) 80vw, 300px" alt="Ayush Kulal standing outdoors under festive string lights" width="800" height="1000" loading="lazy" decoding="async" /></div>
             <figcaption><span>Based in Pune, India</span><span>Engineer, guitarist, biker.</span></figcaption>
           </figure>
         </div>
@@ -157,7 +158,7 @@ export default function Story() {
             <a className="story-music-link" href="https://www.instagram.com/ayush.strums/" target="_blank" rel="noopener noreferrer">Hear what I’m playing <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
           </div>
           <div className="story-offscreen">
-            <figure className="story-ride" data-reveal="wipe"><img src="/ayush-cb350rs.webp" srcSet="/ayush-cb350rs-540.webp 540w, /ayush-cb350rs.webp 900w" sizes="(max-width: 760px) calc(100vw - 44px), (max-width: 1440px) calc(52vw - 67px), 682px" alt="Ayush on his black Honda CB350RS, wearing a helmet on a city street" width="900" height="1599" loading="lazy" decoding="async" /><figcaption><span>My other daily driver.</span><span>Honda CB350RS ↗</span></figcaption></figure>
+            <figure className="story-ride" data-reveal="wipe"><img src={asset("ayush-cb350rs.webp")} srcSet={`${asset("ayush-cb350rs-540.webp")} 540w, ${asset("ayush-cb350rs.webp")} 900w`} sizes="(max-width: 760px) calc(100vw - 44px), (max-width: 1440px) calc(52vw - 67px), 682px" alt="Ayush on his black Honda CB350RS, wearing a helmet on a city street" width="900" height="1599" loading="lazy" decoding="async" /><figcaption><span>My other daily driver.</span><span>Honda CB350RS ↗</span></figcaption></figure>
             <Strings />
           </div>
         </div>
